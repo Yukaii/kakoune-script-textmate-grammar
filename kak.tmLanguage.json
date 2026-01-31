@@ -44,7 +44,7 @@
       "patterns": [
         {
           "name": "comment.line.number-sign.kak",
-          "match": "(^|\\h)\\K#.*$"
+          "match": "(?<=^|\\s)#.*$"
         }
       ]
     },
@@ -52,7 +52,7 @@
       "patterns": [
         {
           "name": "string.quoted.single.kak",
-          "begin": "(^|\\h)\\K'",
+          "begin": "(?<=^|\\s)'",
           "end": "'(?!')",
           "patterns": [
             {
@@ -63,7 +63,7 @@
         },
         {
           "name": "string.quoted.double.kak",
-          "begin": "(^|\\h)\\K\"",
+          "begin": "(?<=^|\\s)\"",
           "end": "\"(?!\")",
           "patterns": [
             {
@@ -112,7 +112,7 @@
       "patterns": [
         {
           "name": "meta.embedded.block.shell.kak",
-          "begin": "(^|\\h)\\K%?%sh\\{",
+          "begin": "(?<=^|\\s)%?%sh\\{",
           "end": "\\}",
           "patterns": [
             {
@@ -122,7 +122,7 @@
         },
         {
           "name": "meta.embedded.block.shell.kak",
-          "begin": "(^|\\h)\\K%?%sh\\(",
+          "begin": "(?<=^|\\s)%?%sh\\(",
           "end": "\\)",
           "patterns": [
             {
@@ -132,7 +132,7 @@
         },
         {
           "name": "meta.embedded.block.shell.kak",
-          "begin": "(^|\\h)\\K%?%sh\\[",
+          "begin": "(?<=^|\\s)%?%sh\\[",
           "end": "\\]",
           "patterns": [
             {
@@ -142,7 +142,7 @@
         },
         {
           "name": "meta.embedded.block.shell.kak",
-          "begin": "(^|\\h)\\K%?%sh<",
+          "begin": "(?<=^|\\s)%?%sh<",
           "end": ">",
           "patterns": [
             {
@@ -156,7 +156,7 @@
       "patterns": [
         {
           "name": "meta.embedded.block.shell.kak",
-          "begin": "(^|\\h)\\K-?shell-script(-completion|-candidates)?\\h+%\\{",
+          "begin": "(?<=^|\\s)-?shell-script(-completion|-candidates)?\\s+%\\{",
           "end": "\\}",
           "patterns": [
             {
@@ -166,7 +166,7 @@
         },
         {
           "name": "meta.embedded.block.shell.kak",
-          "begin": "(^|\\h)\\K-?shell-script(-completion|-candidates)?\\h+%\\(",
+          "begin": "(?<=^|\\s)-?shell-script(-completion|-candidates)?\\s+%\\(",
           "end": "\\)",
           "patterns": [
             {
@@ -176,7 +176,7 @@
         },
         {
           "name": "meta.embedded.block.shell.kak",
-          "begin": "(^|\\h)\\K-?shell-script(-completion|-candidates)?\\h+%\\[",
+          "begin": "(?<=^|\\s)-?shell-script(-completion|-candidates)?\\s+%\\[",
           "end": "\\]",
           "patterns": [
             {
@@ -186,7 +186,7 @@
         },
         {
           "name": "meta.embedded.block.shell.kak",
-          "begin": "(^|\\h)\\K-?shell-script(-completion|-candidates)?\\h+%<",
+          "begin": "(?<=^|\\s)-?shell-script(-completion|-candidates)?\\s+%<",
           "end": ">",
           "patterns": [
             {
@@ -224,42 +224,42 @@
       "patterns": [
         {
           "name": "string.other.raw.kak",
-          "begin": "(^|\\h)\\K%[^{]\\{",
+          "begin": "(?<=^|\\s)%[^{]\\{",
           "end": "\\}"
         },
         {
           "name": "string.other.raw.kak",
-          "begin": "(^|\\h)\\K%\\{",
+          "begin": "(?<=^|\\s)%\\{",
           "end": "\\}"
         },
         {
           "name": "string.other.raw.kak",
-          "begin": "(^|\\h)\\K%[^(]\\(",
+          "begin": "(?<=^|\\s)%[^(]\\(",
           "end": "\\)"
         },
         {
           "name": "string.other.raw.kak",
-          "begin": "(^|\\h)\\K%\\(",
+          "begin": "(?<=^|\\s)%\\(",
           "end": "\\)"
         },
         {
           "name": "string.other.raw.kak",
-          "begin": "(^|\\h)\\K%[^\\[]\\[",
+          "begin": "(?<=^|\\s)%[^\\[]\\[",
           "end": "\\]"
         },
         {
           "name": "string.other.raw.kak",
-          "begin": "(^|\\h)\\K%\\[",
+          "begin": "(?<=^|\\s)%\\[",
           "end": "\\]"
         },
         {
           "name": "string.other.raw.kak",
-          "begin": "(^|\\h)\\K%[^<]<",
+          "begin": "(?<=^|\\s)%[^<]<",
           "end": ">"
         },
         {
           "name": "string.other.raw.kak",
-          "begin": "(^|\\h)\\K%<",
+          "begin": "(?<=^|\\s)%<",
           "end": ">"
         }
       ]
@@ -288,7 +288,7 @@
     },
     "embedded-lua": {
       "name": "meta.embedded.block.lua.kak",
-      "begin": "(^|\\h)\\Klua\\h+%\\{",
+      "begin": "(?<=^|\\s)lua\\s+%\\{",
       "end": "\\}",
       "patterns": [
         {
@@ -298,7 +298,7 @@
     },
     "embedded-python": {
       "name": "meta.embedded.block.python.kak",
-      "begin": "(^|\\h)\\Kpython\\h+%\\{",
+      "begin": "(?<=^|\\s)python\\s+%\\{",
       "end": "\\}",
       "patterns": [
         {
@@ -308,7 +308,7 @@
     },
     "embedded-javascript": {
       "name": "meta.embedded.block.javascript.kak",
-      "begin": "(^|\\h)\\Kjavascript\\h+%\\{",
+      "begin": "(?<=^|\\s)javascript\\s+%\\{",
       "end": "\\}",
       "patterns": [
         {
@@ -318,7 +318,7 @@
     },
     "embedded-ruby": {
       "name": "meta.embedded.block.ruby.kak",
-      "begin": "(^|\\h)\\Kruby\\h+%\\{",
+      "begin": "(?<=^|\\s)ruby\\s+%\\{",
       "end": "\\}",
       "patterns": [
         {
@@ -328,7 +328,7 @@
     },
     "embedded-perl": {
       "name": "meta.embedded.block.perl.kak",
-      "begin": "(^|\\h)\\Kperl\\h+%\\{",
+      "begin": "(?<=^|\\s)perl\\s+%\\{",
       "end": "\\}",
       "patterns": [
         {
@@ -339,7 +339,7 @@
     "embedded-generic": {
       "comment": "Generic language embedding pattern for unknown languages using %{...}",
       "name": "meta.embedded.block.generic.kak",
-      "begin": "(^|\\h)\\K([a-zA-Z_][a-zA-Z0-9_]*)\\h+%\\{",
+      "begin": "(?<=^|\\s)([a-zA-Z_][a-zA-Z0-9_]*)\\s+%\\{",
       "end": "\\}",
       "beginCaptures": {
         "2": {

@@ -1,0 +1,22 @@
+{
+  "name": "kakoune-script-textmate-grammar",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "bun run test-grammar.ts",
+    "validate": "python3 -m json.tool kak.tmLanguage.json > /dev/null && echo '✓ Grammar JSON is valid'",
+    "build": "echo 'No build step needed - grammar is a static JSON file'"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "shiki": "^3.22.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "files": [
+    "kak.tmLanguage.json",
+    "README.md",
+    "example.kak"
+  ]
+}

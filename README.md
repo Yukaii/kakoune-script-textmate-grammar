@@ -159,12 +159,70 @@ hook global WinCreate .*\.cc %{
 }
 ```
 
+## Testing
+
+This project includes a Shiki-based test harness to validate the grammar.
+
+### Setup
+
+```bash
+# Install dependencies (already done via bun init)
+bun install
+
+# Run the grammar test
+bun run test-grammar.ts
+```
+
+### What the Test Does
+
+The test script (`test-grammar.ts`):
+1. Loads the `kak.tmLanguage.json` grammar file
+2. Creates a Shiki highlighter with the custom grammar
+3. Highlights the example code in `example.kak`
+4. Generates HTML output for visual inspection
+5. Tests individual syntax constructs
+
+### Test Output
+
+- `highlighted-output.html` - Full HTML page with highlighted code
+- `highlighted-code.html` - Just the highlighted code block
+- Console output with token statistics and construct test results
+
+### View Results
+
+Open `highlighted-output.html` in a browser to see the syntax highlighting:
+
+```bash
+open highlighted-output.html  # macOS
+# OR
+xdg-open highlighted-output.html  # Linux
+```
+
 ## Development
 
 The grammar was created based on:
 - Kakoune's official syntax specification (`rc/filetype/kakrc.kak`)
 - The markdown grammar's embedded language patterns
 - TextMate grammar best practices
+
+### Testing with Shiki
+
+Shiki is a powerful syntax highlighter that uses TextMate grammars. To test with Shiki:
+
+```typescript
+import { createHighlighter } from 'shiki';
+import kakGrammar from './kak.tmLanguage.json';
+
+const highlighter = await createHighlighter({
+  langs: [kakGrammar, 'bash', 'lua', 'python'],
+  themes: ['github-dark'],
+});
+
+const html = highlighter.codeToHtml(code, {
+  lang: 'kak',
+  theme: 'github-dark',
+});
+```
 
 ## License
 
