@@ -97,3 +97,22 @@ body.light-theme {
   --header-bg: #f6f8fa;
   --border-color: #d0d7de;
 }
+
+/* Monaco Editor cursor fixes */
+.monaco-editor .cursor {
+  background-color: #58a6ff !important;
+  border-color: #58a6ff !important;
+  width: 2px !important;
+}
+
+.monaco-editor .cursors-layer .cursor {
+  background-color: #58a6ff !important;
+  border-color: #58a6ff !important;
+}
+
+/* Ensure cursor is visible in both themes */
+body.light-theme .monaco-editor .cursor,
+body.light-theme .monaco-editor .cursors-layer .cursor {
+  background-color: #0969da !important;
+  border-color: #0969da !important;
+}

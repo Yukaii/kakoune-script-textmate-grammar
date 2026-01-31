@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -24,8 +24,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Copy grammar to demo folder
-        run: cp kak.tmLanguage.json demo/
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      
+      - name: Install dependencies
+        run: bun install
+      
+      - name: Build demo
+        run: bun run build
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -33,7 +41,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './demo'
+          path: './dist'
       
       - name: Deploy to GitHub Pages
         id: deployment

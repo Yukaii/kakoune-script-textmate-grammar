@@ -1,3 +1,8 @@
+import { createHighlighter } from 'shiki';
+import { shikiToMonaco } from '@shikijs/monaco';
+import * as monaco from 'monaco-editor-core';
+import kakGrammar from '../kak.tmLanguage.json';
+
 // Example code snippets
 const examples = {
   basic: `# Example Kakoune Script for Testing Syntax Highlighting
@@ -82,46 +87,10 @@ define-command -hidden kak-indent-on-new-line %~
 
 // Initialize the editor
 async function initEditor() {
-  // Load Monaco CSS
-  const monacoCSS = document.createElement('link');
-  monacoCSS.rel = 'stylesheet';
-  monacoCSS.href = 'https://esm.sh/monaco-editor@0.52.0/min/vs/editor/editor.main.css';
-  document.head.appendChild(monacoCSS);
-
-  // Wait for CSS to load
-  await new Promise(resolve => {
-    monacoCSS.onload = resolve;
-    monacoCSS.onerror = resolve;
-  });
-
-  // Configure Monaco environment
-  window.MonacoEnvironment = {
-    getWorkerUrl: (moduleId, label) => {
-      return `data:text/javascript;charset=utf-8,${encodeURIComponent(`
-        self.MonacoEnvironment = {
-          baseUrl: 'https://esm.sh/monaco-editor@0.52.0/min/'
-        };
-        importScripts('https://esm.sh/monaco-editor@0.52.0/min/vs/base/worker/workerMain.js');
-      `)}`;
-    }
-  };
-
-  // Dynamically import modules from CDN
-  const [{ createHighlighter }, { shikiToMonaco }] = await Promise.all([
-    import('https://esm.sh/shiki@3.22.0'),
-    import('https://esm.sh/@shikijs/monaco@3.22.0')
-  ]);
-
-  // Load Monaco
-  const monaco = await import('https://esm.sh/monaco-editor@0.52.0');
-
-  // Load grammar
-  const kakGrammar = await fetch('./kak.tmLanguage.json').then(r => r.json());
-
   // Create highlighter
   const highlighter = await createHighlighter({
     themes: ['github-dark', 'github-light', 'vitesse-dark', 'vitesse-light'],
-    langs: [kakGrammar, 'bash', 'lua', 'python', 'javascript'],
+    langs: [kakGrammar as any, 'bash', 'lua', 'python', 'javascript'],
   });
 
   // Register with Monaco
@@ -129,7 +98,7 @@ async function initEditor() {
   shikiToMonaco(highlighter, monaco);
 
   // Create editor
-  const editor = monaco.editor.create(document.getElementById('editor-container'), {
+  const editor = monaco.editor.create(document.getElementById('editor-container')!, {
     value: examples.basic,
     language: 'kak',
     theme: 'github-dark',
@@ -149,9 +118,9 @@ async function initEditor() {
   editor.focus();
 
   // Theme selector
-  const themeSelector = document.getElementById('theme-selector');
+  const themeSelector = document.getElementById('theme-selector') as HTMLSelectElement;
   themeSelector.addEventListener('change', (e) => {
-    const theme = e.target.value;
+    const theme = (e.target as HTMLSelectElement).value;
     monaco.editor.setTheme(theme);
     
     // Update body class for UI theme
@@ -163,9 +132,9 @@ async function initEditor() {
   });
 
   // Example selector
-  const exampleSelector = document.getElementById('example-selector');
+  const exampleSelector = document.getElementById('example-selector') as HTMLSelectElement;
   exampleSelector.addEventListener('change', (e) => {
-    const example = examples[e.target.value];
+    const example = examples[(e.target as HTMLSelectElement).value as keyof typeof examples];
     if (example) {
       editor.setValue(example);
     }

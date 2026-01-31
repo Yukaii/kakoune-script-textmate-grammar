@@ -6,11 +6,14 @@
   "scripts": {
     "test": "bun run test-grammar.ts",
     "validate": "python3 -m json.tool kak.tmLanguage.json > /dev/null && echo '✓ Grammar JSON is valid'",
-    "build": "echo 'No build step needed - grammar is a static JSON file'"
+    "dev": "bun ./demo/index.html",
+    "build": "bun build ./demo/index.html --outdir=dist --minify"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "shiki": "^3.22.0"
+    "shiki": "^3.22.0",
+    "@shikijs/monaco": "^3.22.0",
+    "monaco-editor-core": "^0.52.0"
   },
   "peerDependencies": {
     "typescript": "^5"
