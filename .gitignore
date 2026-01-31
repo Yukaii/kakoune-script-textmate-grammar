@@ -9,6 +9,9 @@ dist
 # generated test output
 highlighted-*.html
 
+# copied grammar for demo (built in CI)
+demo/kak.tmLanguage.json
+
 # code coverage
 coverage
 *.lcov

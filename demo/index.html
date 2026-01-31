@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kakoune Script Editor - Interactive Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Kakoune Script Editor</h1>
+      <div class="controls">
+        <select id="theme-selector">
+          <option value="github-dark">GitHub Dark</option>
+          <option value="github-light">GitHub Light</option>
+          <option value="vitesse-dark">Vitesse Dark</option>
+          <option value="vitesse-light">Vitesse Light</option>
+        </select>
+        <select id="example-selector">
+          <option value="basic">Basic Example</option>
+          <option value="shell">Shell Expansion</option>
+          <option value="complex">Complex (from kakrc.kak)</option>
+        </select>
+      </div>
+    </header>
+    
+    <main>
+      <div id="editor-container"></div>
+    </main>
+    
+    <footer>
+      <p>
+        Powered by <a href="https://shiki.style" target="_blank">Shiki</a> + 
+        <a href="https://microsoft.github.io/monaco-editor/" target="_blank">Monaco Editor</a> | 
+        <a href="https://github.com/Yukaii/kakoune-script-textmate-grammar" target="_blank">View on GitHub</a>
+      </p>
+    </footer>
+  </div>
+  
+  <script type="module" src="editor.js"></script>
+</body>
+</html>

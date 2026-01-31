@@ -2,6 +2,7 @@
   "name": "kakoune-script-textmate-grammar",
   "type": "module",
   "private": true,
+  "homepage": "https://Yukaii.github.io/kakoune-script-textmate-grammar",
   "scripts": {
     "test": "bun run test-grammar.ts",
     "validate": "python3 -m json.tool kak.tmLanguage.json > /dev/null && echo '✓ Grammar JSON is valid'",

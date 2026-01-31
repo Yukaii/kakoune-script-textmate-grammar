@@ -2,6 +2,8 @@
 
 A comprehensive TextMate grammar for Kakoune script (`.kak` files and `kakrc`) with support for embedded languages.
 
+**[🚀 Try the Interactive Demo](https://Yukaii.github.io/kakoune-script-textmate-grammar)**
+
 ## Features
 
 - **Complete syntax highlighting** for all Kakoune script constructs
