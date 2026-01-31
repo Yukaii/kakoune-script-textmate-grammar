@@ -1,0 +1,390 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Kakoune Script",
+  "scopeName": "source.kak",
+  "fileTypes": [".kak", "kakrc"],
+  "patterns": [
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#expansions"
+    },
+    {
+      "include": "#embedded-languages"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#attributes"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#values"
+    },
+    {
+      "include": "#switches"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#colors"
+    }
+  ],
+  "repository": {
+    "comment": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.kak",
+          "match": "(^|\\h)\\K#.*$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.single.kak",
+          "begin": "(^|\\h)\\K'",
+          "end": "'(?!')",
+          "patterns": [
+            {
+              "name": "constant.character.escape.kak",
+              "match": "''"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.kak",
+          "begin": "(^|\\h)\\K\"",
+          "end": "\"(?!\")",
+          "patterns": [
+            {
+              "name": "constant.character.escape.kak",
+              "match": "\"\""
+            },
+            {
+              "include": "#expansions"
+            }
+          ]
+        }
+      ]
+    },
+    "expansions": {
+      "patterns": [
+        {
+          "include": "#expansion-sh"
+        },
+        {
+          "include": "#expansion-opt"
+        },
+        {
+          "include": "#expansion-val"
+        },
+        {
+          "include": "#expansion-reg"
+        },
+        {
+          "include": "#expansion-arg"
+        },
+        {
+          "include": "#expansion-file"
+        },
+        {
+          "include": "#expansion-exp"
+        },
+        {
+          "include": "#expansion-raw"
+        },
+        {
+          "include": "#expansion-shell-script"
+        }
+      ]
+    },
+    "expansion-sh": {
+      "patterns": [
+        {
+          "name": "meta.embedded.block.shell.kak",
+          "begin": "(^|\\h)\\K%?%sh\\{",
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        },
+        {
+          "name": "meta.embedded.block.shell.kak",
+          "begin": "(^|\\h)\\K%?%sh\\(",
+          "end": "\\)",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        },
+        {
+          "name": "meta.embedded.block.shell.kak",
+          "begin": "(^|\\h)\\K%?%sh\\[",
+          "end": "\\]",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        },
+        {
+          "name": "meta.embedded.block.shell.kak",
+          "begin": "(^|\\h)\\K%?%sh<",
+          "end": ">",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        }
+      ]
+    },
+    "expansion-shell-script": {
+      "patterns": [
+        {
+          "name": "meta.embedded.block.shell.kak",
+          "begin": "(^|\\h)\\K-?shell-script(-completion|-candidates)?\\h+%\\{",
+          "end": "\\}",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        },
+        {
+          "name": "meta.embedded.block.shell.kak",
+          "begin": "(^|\\h)\\K-?shell-script(-completion|-candidates)?\\h+%\\(",
+          "end": "\\)",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        },
+        {
+          "name": "meta.embedded.block.shell.kak",
+          "begin": "(^|\\h)\\K-?shell-script(-completion|-candidates)?\\h+%\\[",
+          "end": "\\]",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        },
+        {
+          "name": "meta.embedded.block.shell.kak",
+          "begin": "(^|\\h)\\K-?shell-script(-completion|-candidates)?\\h+%<",
+          "end": ">",
+          "patterns": [
+            {
+              "include": "source.shell"
+            }
+          ]
+        }
+      ]
+    },
+    "expansion-opt": {
+      "match": "%opt\\{[^}]+\\}",
+      "name": "variable.other.option.kak"
+    },
+    "expansion-val": {
+      "match": "%val\\{[^}]+\\}",
+      "name": "variable.other.value.kak"
+    },
+    "expansion-reg": {
+      "match": "%reg\\{[^}]+\\}",
+      "name": "variable.other.register.kak"
+    },
+    "expansion-arg": {
+      "match": "%arg\\{[^}]+\\}",
+      "name": "variable.other.argument.kak"
+    },
+    "expansion-file": {
+      "match": "%file\\{[^}]+\\}",
+      "name": "variable.other.file.kak"
+    },
+    "expansion-exp": {
+      "match": "%exp\\{[^}]+\\}",
+      "name": "variable.other.expansion.kak"
+    },
+    "expansion-raw": {
+      "patterns": [
+        {
+          "name": "string.other.raw.kak",
+          "begin": "(^|\\h)\\K%[^{]\\{",
+          "end": "\\}"
+        },
+        {
+          "name": "string.other.raw.kak",
+          "begin": "(^|\\h)\\K%\\{",
+          "end": "\\}"
+        },
+        {
+          "name": "string.other.raw.kak",
+          "begin": "(^|\\h)\\K%[^(]\\(",
+          "end": "\\)"
+        },
+        {
+          "name": "string.other.raw.kak",
+          "begin": "(^|\\h)\\K%\\(",
+          "end": "\\)"
+        },
+        {
+          "name": "string.other.raw.kak",
+          "begin": "(^|\\h)\\K%[^\\[]\\[",
+          "end": "\\]"
+        },
+        {
+          "name": "string.other.raw.kak",
+          "begin": "(^|\\h)\\K%\\[",
+          "end": "\\]"
+        },
+        {
+          "name": "string.other.raw.kak",
+          "begin": "(^|\\h)\\K%[^<]<",
+          "end": ">"
+        },
+        {
+          "name": "string.other.raw.kak",
+          "begin": "(^|\\h)\\K%<",
+          "end": ">"
+        }
+      ]
+    },
+    "embedded-languages": {
+      "patterns": [
+        {
+          "include": "#embedded-lua"
+        },
+        {
+          "include": "#embedded-python"
+        },
+        {
+          "include": "#embedded-javascript"
+        },
+        {
+          "include": "#embedded-ruby"
+        },
+        {
+          "include": "#embedded-perl"
+        },
+        {
+          "include": "#embedded-generic"
+        }
+      ]
+    },
+    "embedded-lua": {
+      "name": "meta.embedded.block.lua.kak",
+      "begin": "(^|\\h)\\Klua\\h+%\\{",
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "source.lua"
+        }
+      ]
+    },
+    "embedded-python": {
+      "name": "meta.embedded.block.python.kak",
+      "begin": "(^|\\h)\\Kpython\\h+%\\{",
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "source.python"
+        }
+      ]
+    },
+    "embedded-javascript": {
+      "name": "meta.embedded.block.javascript.kak",
+      "begin": "(^|\\h)\\Kjavascript\\h+%\\{",
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "source.js"
+        }
+      ]
+    },
+    "embedded-ruby": {
+      "name": "meta.embedded.block.ruby.kak",
+      "begin": "(^|\\h)\\Kruby\\h+%\\{",
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "source.ruby"
+        }
+      ]
+    },
+    "embedded-perl": {
+      "name": "meta.embedded.block.perl.kak",
+      "begin": "(^|\\h)\\Kperl\\h+%\\{",
+      "end": "\\}",
+      "patterns": [
+        {
+          "include": "source.perl"
+        }
+      ]
+    },
+    "embedded-generic": {
+      "comment": "Generic language embedding pattern for unknown languages using %{...}",
+      "name": "meta.embedded.block.generic.kak",
+      "begin": "(^|\\h)\\K([a-zA-Z_][a-zA-Z0-9_]*)\\h+%\\{",
+      "end": "\\}",
+      "beginCaptures": {
+        "2": {
+          "name": "entity.name.function.kak"
+        }
+      }
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.kak",
+          "match": "\\b(try|catch)\\b"
+        },
+        {
+          "name": "keyword.other.kak",
+          "match": "(?:\\s|\\A)\\K(add-highlighter|alias|arrange-buffers|buffer|buffer-next|buffer-previous|change-directory|colorscheme|complete-command|debug|declare-option|declare-user-mode|define-command|delete-buffer|delete-buffer!|echo|edit|edit!|enter-user-mode|evaluate-commands|execute-keys|fail|hook|info|kill|kill!|map|nop|on-key|prompt|provide-module|quit|quit!|remove-highlighter|remove-hooks|rename-buffer|rename-client|rename-session|require-module|select|set-face|set-option|set-register|source|trigger-user-hook|unalias|unmap|unset-face|unset-option|update-option|write|write!|write-all|write-all-quit|write-quit|write-quit!)(?:(?=\\s)|\\z)"
+        }
+      ]
+    },
+    "attributes": {
+      "name": "storage.modifier.kak",
+      "match": "(?:\\s|\\A)\\K(global|buffer|window|current|normal|insert|prompt|goto|view|user|object|number-lines|show-matching|show-whitespaces|fill|regex|dynregex|group|flag-lines|ranges|line|column|wrap|ref|regions|region|default-region|replace-ranges)(?:(?=\\s)|\\z)"
+    },
+    "types": {
+      "name": "storage.type.kak",
+      "match": "(?:\\s|\\A)\\K(int|bool|str|regex|int-list|str-list|completions|line-specs|range-specs|str-to-str-map)(?:(?=\\s)|\\z)"
+    },
+    "values": {
+      "name": "constant.language.kak",
+      "match": "(?:\\s|\\A)\\K(default|black|red|green|yellow|blue|magenta|cyan|white|yes|no|false|true)(?:(?=\\s)|\\z)"
+    },
+    "switches": {
+      "patterns": [
+        {
+          "name": "variable.parameter.switch.kak",
+          "match": "\\B(-params|-override|-hidden|-docstring|-file-completion|-client-completion|-buffer-completion|-shell-script-completion|-shell-script-candidates|-group|-once|-always|-add|-remove|-update)\\b"
+        }
+      ]
+    },
+    "numbers": {
+      "name": "constant.numeric.kak",
+      "match": "\\b\\d+\\b"
+    },
+    "colors": {
+      "name": "constant.color.rgb.kak",
+      "match": "\\b(rgb:[0-9a-fA-F]{6}|rgba:[0-9a-fA-F]{8})\\b"
+    }
+  }
+}
