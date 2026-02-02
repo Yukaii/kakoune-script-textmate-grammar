@@ -4,6 +4,10 @@ A comprehensive TextMate grammar for Kakoune script (`.kak` files and `kakrc`) w
 
 **[🚀 Try the Interactive Demo](https://Yukaii.github.io/kakoune-script-textmate-grammar)**
 
+## Why making this?
+
+I integrate [giallo](https://github.com/getzola/giallo) into [kakoune](https://github.com/Yukaii/giallo.kak), which using TextMate for syntax highlighting in kakoune. I also want a pretty kakrc highlighting.
+
 ## Screenshots
 
 - ![live_editor_demo_1](./docs/images/live_editor_demo_1.png)
