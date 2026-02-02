@@ -4,6 +4,11 @@ A comprehensive TextMate grammar for Kakoune script (`.kak` files and `kakrc`) w
 
 **[🚀 Try the Interactive Demo](https://Yukaii.github.io/kakoune-script-textmate-grammar)**
 
+## Screenshots
+
+- ![live_editor_demo_1](./docs/images/live_editor_demo_1.png)
+- ![live_editor_demo_2](./docs/images/live_editor_demo_2.png)
+
 ## Features
 
 - **Complete syntax highlighting** for all Kakoune script constructs
